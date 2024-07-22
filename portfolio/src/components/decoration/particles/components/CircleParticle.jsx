@@ -22,7 +22,7 @@ export default function CircleParticle({ screenPosition, lifeTime, color }) {
     height: "5px",
     borderRadius: "100%",
     backgroundColor: color,
-    zIndex: 9999,
+    zIndex: 0,
     transition: muiTheme.transitions.create(["opacity"], {
       duration: 1000,
     }),

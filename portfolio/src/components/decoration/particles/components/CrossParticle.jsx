@@ -20,7 +20,7 @@ export default function CrossParticle({ screenPosition, lifeTime, color }) {
     left: screenPosition.x,
     width: "10px",
     height: "10px",
-    zIndex: 9999,
+    zIndex: 0,
     transition: muiTheme.transitions.create(["opacity"], {
       duration: 1000,
     }),

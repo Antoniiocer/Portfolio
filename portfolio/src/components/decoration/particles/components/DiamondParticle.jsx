@@ -22,7 +22,7 @@ export default function DiamondParticle({ screenPosition, lifeTime, color }) {
     height: "5px",
     transform: "rotate(45deg)",
     backgroundColor: color,
-    zIndex: 9999,
+    zIndex: 0,
     transition: muiTheme.transitions.create(["opacity"], {
       duration: 1000,
     }),

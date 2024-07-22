@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useTheme, Box, Grid, IconButton } from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
 
-export default function InfoContainer() {
+export default function InfoContainer({ content, icon, position, color, ...props }) {
   const theme = useTheme();
   const [isContainerOpen, setIsContainerOpen] = useState(false);
 
@@ -10,30 +9,40 @@ export default function InfoContainer() {
     width: "85%",
     m: 0,
     p: 0,
-    pt: 5,
     height: "100%",
-    position: "relative",
+    position: "absolute",
     overflow: "hidden",
+    ...props.mainContainer?.sx,
   };
 
   const contentContainerProps = {
     height: "100%",
-    backgroundColor: theme.palette.error.dark,
+    backgroundColor: color.dark,
     pr: "10px",
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeInOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: isContainerOpen ? "0%" : "-92%",
+    zIndex: isContainerOpen ? 6 - position : 1,
+    ...props?.mainContainer,
   };
 
   const stickerContainerProps = {
+    width: "100%",
     height: "10%",
-    backgroundColor: theme.palette.error.main,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: "0 20% 20% 0",
+    backgroundColor: color.main,
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeInOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    "&:hover": {
+      cursor: "pointer",
+      scaleX: 1.2,
+      marginLeft: isContainerOpen ? "0%" : "3%",
+    },
+    ...props?.secondaryContainer,
   };
 
   const iconProps = {
@@ -47,6 +56,7 @@ export default function InfoContainer() {
     "&:hover": {
       borderRadius: "0 20% 20% 0",
     },
+    ...props?.stickerProps,
   };
 
   const handleOpenContainer = () => {
@@ -57,16 +67,14 @@ export default function InfoContainer() {
     <Box sx={containerProps}>
       <Grid container sx={{ height: "100%" }}>
         <Grid item xs={11} sx={contentContainerProps}>
-          Contenido principal que ocupa el 90% del contenedor.
+          {content}
         </Grid>
-        <Grid item xs={1} sx={stickerContainerProps}>
-          <IconButton
-            aria-label="About me"
-            sx={iconProps}
-            onClick={handleOpenContainer}
-          >
-            <InfoIcon sx={{ fontSize: "200%" }} />
-          </IconButton>
+        <Grid item xs={1}>
+          <Box sx={stickerContainerProps}>
+            <IconButton sx={iconProps} onClick={handleOpenContainer}>
+              {icon}
+            </IconButton>
+          </Box>
         </Grid>
       </Grid>
     </Box>
