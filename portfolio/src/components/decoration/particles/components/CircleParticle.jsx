@@ -29,5 +29,6 @@ export default function CircleParticle({ screenPosition, lifeTime, color }) {
     opacity: isVisible ? 1 : 0,
   };
 
-  return <Box sx={particleStyle}></Box>;
+  if (particleStyle.opacity === 0) return null;
+  return <Box sx={particleStyle} />;
 }
